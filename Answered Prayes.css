@@ -1,0 +1,158 @@
+/* prayer-journal.css
+   Shared styles for the printable editable Prayer Journal page.
+   Make sure the Google Fonts link is included in your index.html head:
+   - Playfair Display (serif heavy for "PRAYER")
+   - Dancing Script (handwritten for "journal")
+*/
+
+/* color variables */
+:root{
+  --bg:#FBF9F8;
+  --pink:#FFB7D0;
+  --hotpink:#FF00CC;
+  --gold:#856B4A;
+  --blackline:#111;
+  --paper:#fcfbfa;
+}
+
+/* page wrapper centers the sheet and constrains size to an A4-like aspect */
+.pj-page-wrap{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px;
+  gap:24px;
+  background:var(--bg);
+  box-sizing:border-box;
+  padding-top:40px;
+}
+
+/* sheet - white-ish page with padding and relative for decorations */
+.pj-sheet{
+  width:820px;
+  height:1120px;
+  background: var(--paper);
+  position:relative;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-radius: 4px;
+  overflow:hidden;
+  padding:42px 54px;
+  box-sizing:border-box;
+  font-family: 'Playfair Display', serif;
+  color: #1A1A1A;
+  -webkit-print-color-adjust: exact; /* ensure background colors print correctly */
+}
+
+/* decorative blobs */
+.pj-blob{ position:absolute; pointer-events:none; }
+.pj-blob-top-left{ width:180px; height:180px; left:-20px; top:-10px; transform: rotate(-10deg); }
+.pj-blob-bottom-right{ width:220px; height:220px; right:-10px; bottom:110px; transform: rotate(10deg); }
+.pj-blob-bottom-left{ position:absolute; width:420px; height:140px; left:-40px; bottom:-10px; opacity:0.95; }
+
+/* header */
+.pj-header{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
+.pj-title-left{ position:relative; display:flex; align-items:flex-start; }
+
+/* typography */
+.pj-prayer{ font-size:64px; line-height:0.85; font-weight:900; color:var(--gold); letter-spacing:2px; }
+.pj-journal{ font-family:'Dancing Script', cursive; font-size:44px; margin-left:10px; margin-top:18px; color:#4b4038; transform: translateY(4px); }
+
+/* sparkles */
+.pj-sparkles{ position:absolute; left:4px; top:66px; display:flex; gap:6px; }
+.sparkle{ width:12px; height:12px; border:3px solid #4b4038; transform: rotate(20deg); opacity:0.9; border-radius:2px; }
+.s1{ width:9px; height:9px; transform:rotate(10deg); }
+.s2{ width:16px; height:12px; transform:rotate(-10deg); border-radius:3px; }
+
+/* date area */
+.pj-date-wrap{ width:320px; text-align:right; }
+.pj-date-label{ font-weight:900; letter-spacing:2px; color:#655240; font-size:18px; margin-bottom:8px; }
+.pj-date-line{ height:3px; background: linear-gradient(90deg, #603d2b 0%, #a07f62 100%); border-radius:2px; box-shadow: 0 1px 0 rgba(0,0,0,0.05) inset; margin-top:8px; }
+
+/* editable date input */
+.pj-date-input{
+  display:block;
+  width:100%;
+  text-align:right;
+  font-family: 'Playfair Display', serif;
+  font-size:16px;
+  padding:4px 0;
+  border:none;
+  background:transparent;
+  color:#4b4038;
+  outline:none;
+}
+
+/* section title */
+.pj-section-title{ text-align:left; font-size:20px; color: #4a2f26; letter-spacing:8px; margin:28px 0 20px; font-weight:700; }
+
+/* rows container */
+.pj-rows{ display:flex; flex-direction:column; gap:22px; margin-top:6px; padding-right:40px; }
+
+/* row layout */
+.pj-row{ display:flex; align-items:center; gap:18px; position:relative; }
+
+/* checkbox */
+.pj-checkbox{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; min-width:34px; cursor:pointer; position:relative; }
+.pj-checkbox input{ display:none; }
+.pj-checkbox-box{ width:26px; height:26px; border:4px solid var(--hotpink); box-sizing:border-box; background: transparent; border-radius:2px; display:block; position:relative; }
+.pj-checkbox-dot{ position:absolute; left:50%; top:50%; width:10px; height:10px; transform:translate(-50%,-50%); background:var(--hotpink); border-radius:2px; }
+
+/* underline and input wrapper */
+.pj-underline-and-input{ flex:1; display:flex; flex-direction:column; gap:6px; position:relative; }
+.pj-underline{ height:6px; background: linear-gradient(180deg, #000 0%, #000 100%); border-radius:2px; box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset; }
+
+/* editable line input styling */
+.pj-line-input{
+  position:relative;
+  width:100%;
+  resize:none;
+  border:none;
+  background:transparent;
+  padding:6px 8px;
+  font-size:18px;
+  font-family: 'Playfair Display', serif;
+  color:#1A1A1A;
+  line-height:1.15;
+  outline:none;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ensure textarea sits above the underline visually */
+.pj-underline-and-input .pj-line-input{ z-index:10; margin-bottom:-6px; }
+
+/* right accent */
+.pj-right-accent{ position:absolute; right:44px; top:480px; width:72px; height:72px; pointer-events:none; }
+.pj-cross-vertical{ position:absolute; left:26px; top:0; width:4px; height:46px; background:#222; opacity:0.9; }
+.pj-cross-horizontal{ position:absolute; left:0; top:18px; width:46px; height:4px; background:#222; opacity:0.9; }
+.pj-accent-circle{ position:absolute; right:0; bottom:0; width:48px; height:48px; border-radius:50%; background: rgba(255,183,208,0.95); border:3px solid rgba(0,0,0,0.6); transform: translate(8px, 6px); }
+
+/* controls panel */
+.pj-controls{ display:flex; flex-direction:column; gap:10px; align-items:center; }
+.pj-btn{ padding:10px 16px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; font-weight:600; font-family: inherit; }
+.pj-btn:hover{ transform: translateY(-2px); transition: transform .12s ease; }
+.pj-btn-primary{ background: linear-gradient(90deg,#ff78c8,#ff4fb3); color:white; border:none; box-shadow:0 6px 18px rgba(255,79,179,0.12); }
+.pj-btn-danger{ background: #fff; color: #c53030; border-color:#f1c0c0; }
+
+/* print-friendly: ensure background images/colors are printed */
+@media print {
+  .pj-sheet{ box-shadow:none; }
+  .pj-controls{ display:none; }
+}
+
+/* responsive */
+@media (max-width:900px){
+  .pj-sheet{ width:640px; height:880px; padding:28px; }
+  .pj-prayer{ font-size:46px; }
+  .pj-journal{ font-size:34px; }
+  .pj-blob-top-left{ width:140px; height:140px; left:-16px; top:-6px;}
+  .pj-blob-bottom-right{ width:180px; height:180px; right:-6px; bottom:100px;}
+}
+
+@media (max-width:520px){
+  .pj-sheet{ width:92%; height:auto; padding:20px; }
+  .pj-rows{ gap:16px; }
+  .pj-prayer{ font-size:36px; }
+  .pj-journal{ font-size:28px; margin-top:14px; }
+}
